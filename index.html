@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>스프라이츠 애니메이션</title>
+    <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah|ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <style>
+        html,
+        body,
+        ul,
+        h1 {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #8CC63E;
+        }
+        
+        /*공통class*/
+        .bld{/*IR(Image Replacement)*/
+            display: none;
+        }
+
+        /*
+        웹폰트체
+        font-family: 'Gloria Hallelujah', cursive;
+        font-family: 'ZCOOL KuaiLe', cursive;
+        */
+
+        /*타이틀*/
+        .mtit {
+            position: absolute;
+            top: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            /*가로방향 정중앙이동*/
+            text-align: center;
+            font-size: 52px;
+            font-family: 'Gloria Hallelujah', cursive;
+            color: #fff;
+            /*            outline: 1px solid red;*/
+            z-index: 1;
+            /* .tvset에 부모자격으로 relative를
+            주는 순간 순서위치관계가 생겨서 나중에
+            그린것 보다 위로 올리기위해 z-index셋팅함*/
+        }
+
+        /*메뉴*/
+        .gnb {
+            position: absolute;
+            /*나의부모? body*/
+            top: 10%;
+            left: 50px;
+        }
+
+        .gnb ul {
+            list-style: none;
+            /*블릿없앰*/
+        }
+
+        .gnb a {
+            color: #fff;
+            text-decoration: none;
+            font-family: 'ZCOOL KuaiLe', cursive;
+            font-size: 32px;
+            line-height: 100px;
+        }
+
+        /*메뉴오버시*/
+        .gnb a:hover {
+            color: #f00;
+            text-decoration: line-through;
+        }
+
+        /*TV셋*/
+        .tvset {
+            position: relative;
+            /*부모자격*/
+            width: 1280px;
+            height: 720px;
+            background: url(images/tvset.png) no-repeat;
+            margin: 0 auto;
+        }
+
+        /*스크린*/
+        .screen {
+            position: absolute;
+            /*나의부모? .tvset*/
+            top: 213px;
+            left: 449px;
+            width: 456px;
+            height: 227px;
+            background-image: url(images/street.jpg);
+            background-repeat: repeat-x;
+            background-size: auto 100%;
+            /*애니메이션호출(이시이지반방마)*/
+            animation: street 4s linear infinite;
+        }
+        /*키프레임 - 스크린 배경 애니메이션*/
+        @keyframes street{
+            from{
+                background-position: 0 0;
+            }
+            to{
+                background-position: -563% 0;
+            }
+        }/*키프레임*/
+        
+        /*걷는소년 존*/
+        .spani1{
+            width: 92px;
+            height: 176px;
+            margin: 23px auto;
+            background-image: url(images/spAni03.png);
+            background-size: auto 176px;
+/*            outline: 2px solid blue;*/
+            /*애니메이션호출*/
+            animation: spani1 1s steps(8) infinite;
+            
+        }
+        
+        /*
+            스프라이트를 이용한 애니를 하려면 배경이미지의
+            전체 길이를 알아야함!
+        
+            전체길이 / 장면개수 = 하나당 이동길이
+            비례식으로~!
+        
+            가로 : 세로 = 1472 : 325 = x : 176
+            x = 1472 * 176 / 325
+            x = 797.14...
+            
+            [호출시 스프라이트 애니 장면별 찍는 steps를 정함!]
+             - 장면을 찍을때 이징(가속도)은 불필요
+            
+            animation: 이름 시간 steps(장면수) infinite;
+        
+            [ 키프레임 셋팅법 ]
+            @keyframes 키프레임명 {
+                from{
+                    background-position: 0 0;
+                }
+                to{
+                    background-position: 가로크기 0;
+                }
+            }
+        
+            x축이동일 경우 x축 포지션값만 변경하고
+            y축이동일 경우 y축 포지션값만 변경한다!
+            
+            
+        */
+        
+        /*걷는 소년 존 키프레임*/
+        @keyframes spani1{
+            from{
+                background-position: 0 0;
+            }
+            to{
+                background-position: -797px 0;
+            }
+        }/*키프레임*/
+        
+        
+        /*꼬마*/
+        .spani2{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 72px;
+            background-image: url(images/spAni01.png);
+/*            outline: 2px solid blue;*/
+            /*애니메이션호출*/
+            animation: spani2 1s steps(10) infinite;
+            
+        }
+        
+        /*꼬마 키프레임*/
+        @keyframes spani2{
+            from{
+                background-position: 0 0;
+            }
+            to{
+                background-position: -500px 0;
+            }
+        }/*키프레임*/
+        
+        /*몬스터*/
+        .spani3{
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 118px;
+            height: 118px;
+            background-image: url(images/spAni02.png);
+/*            outline: 2px solid blue;*/
+            /*애니메이션호출*/
+            animation: spani3X 1s steps(6) infinite,
+                       spani3Y 3s steps(3) infinite;
+            /*
+                x축은 1초간 6장면이동 - steps(장면수)
+                y축은 3초간 3줄이동 - steps(줄수)
+            */
+            
+        }
+        
+        /*몬스터 키프레임 x축이동*/
+        @keyframes spani3X{
+            from{
+                background-position-x: 0;
+            }
+            to{
+                background-position-x: -710px;
+                /*x축이동은 이미지 길이값(width)*/
+            }
+        }/*키프레임*/
+        
+        /*몬스터 키프레임 y축이동*/
+        @keyframes spani3Y{
+            from{
+                background-position-y: 0;
+            }
+            to{
+                background-position-y: -355px;
+                /*y축이동값은 이미지 높이값(height)*/
+            }
+        }/*키프레임*/
+        
+        /*
+            background-position-x x축 배경 포지션
+            background-position-y y축 배경 포지션
+            -> 여러줄 처리시 방향을 구분하여 코딩해야 잘됨!
+        */
+        
+        /*웃는여자*/
+        .spani4{
+            position: absolute;
+            top: 10%;
+            right: 20px;
+            width: 256px;
+            height: 407px;
+            background-image: url(images/girl_frames.png);
+            border: 20px ridge #a85f15;
+            /*보더 종류 ridge는 액자모양*/
+            transform: scale(.5);
+            /*크기에 맞게 만든 후 scale로 크기를 줄이면 좋음^^*/
+            
+            /*애니메이션호출*/
+            animation: spani4X 1s steps(5) infinite,
+                       spani4Y 3s steps(3) infinite;
+            /*
+                x축은 1초간 6장면이동 - steps(장면수)
+                y축은 3초간 3줄이동 - steps(줄수)
+            */
+            
+        }
+        
+        /*웃는여자 키프레임 x축이동*/
+        @keyframes spani4X{
+            from{
+                background-position-x: 0;
+            }
+            to{
+                background-position-x: -1280px;
+                /*x축이동은 이미지 길이값(width)*/
+            }
+        }/*키프레임*/
+        
+        /*웃는여자 키프레임 y축이동*/
+        @keyframes spani4Y{
+            from{
+                background-position-y: 0;
+            }
+            to{
+                background-position-y: -1222px;
+                /*y축이동값은 이미지 높이값(height)*/
+            }
+        }/*키프레임*/
+        
+        /*확대 애니메이션 class*/
+        .ani{
+            transition: all .8s;
+        }
+        .ani:hover{
+            transform: scale(4);
+        }
+        
+        
+        
+    </style>
+</head>
+
+<body>
+    <!--1.제목-->
+    <h1 class="mtit">John's Television</h1>
+
+    <!--2.메뉴-->
+    <nav class="gnb">
+        <ul>
+            <li>
+                <a href="#">Watching</a>
+            </li>
+            <li>
+                <a href="#">Eating</a>
+            </li>
+            <li>
+                <a href="#">Listening</a>
+            </li>
+            <li>
+                <a href="#">Sleeping</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!--3.TV박스-->
+    <section class="tvset">
+        <div class="screen">
+            <!--1.걷는소년-->
+            <div class="spani1 ani">
+                <span class="bld">걷는소년존</span>
+            </div>
+            <!--2.꼬마-->
+            <div class="spani2 ani">
+                <span class="bld">손흔드는 꼬마</span>
+            </div>
+            <!--3.몬스터-->
+            <div class="spani3 ani">
+                <span class="bld">쿠키 몬스터</span>
+            </div>
+        </div>
+    </section>
+    
+    <!--추가애니-->
+    <div class="spani4 ani">
+        <span class="bld">웃는여자</span>
+    </div>
+    
+    
+    
+
+
+
+
+</body></html>
